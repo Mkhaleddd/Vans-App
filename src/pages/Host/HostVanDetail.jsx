@@ -34,7 +34,10 @@ export default function HostVanDetail() {
                     <>
                 
                                     <div className="host-van-detail">
+                                    <picture>
+                                        <source srcset={currentVan.imageURL} type="image/webp"/>
                                         <img src={currentVan.imageURL} alt={`Image of ${currentVan.name}`} />
+                                    </picture>
                                         <div className="host-van-detail-info-text">
                                             <i
                                                 className={`van-type van-type-${currentVan.type}`}

@@ -16,7 +16,10 @@ export default function Dashboard() {
     function renderVanElements(vans) {
         const hostVansEls = vans.map((van) => (
             <div className="host-van-single" key={van.id}>
-                <img src={van.imageURL} alt={`Photo of ${van.name}`} />
+                <picture>
+                    <source srcset={van.imageURL} type="image/webp"/>
+                    <img src={van.imageURL} alt={`Photo of ${van.name}`} />
+                </picture>
                 <div className="host-van-info">
                     <h3>{van.name}</h3>
                     <p>${van.price}/day</p>

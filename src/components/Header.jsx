@@ -42,7 +42,7 @@ export default function Header() {
                 >
                     Vans
                 </NavLink></li>
-                <li><Link to="/login" className="login-link">
+                <li><Link to="/login" className="login-link" aria-label="log in ">
                          <FaRegCircleUser />
                 </Link>
                 </li>

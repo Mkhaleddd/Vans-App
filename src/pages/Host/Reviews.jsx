@@ -28,11 +28,16 @@ export default function Reviews() {
                     Last <span>30 days</span>
                 </p>
             </div>
-            <img
-                className="graph"
-                src={reviewIG}
-                alt="Review graph"
-            />
+            <picture>
+                    <source 
+                    srcset={reviewIG}
+                     type="image/webp"/>
+                    <img
+                        className="graph"
+                        src={reviewIG}
+                        alt="Review graph"
+                    />
+            </picture>
             <h3>Reviews (2)</h3>
             {reviewsData.map((review) => (
                 <div key={review.id}>

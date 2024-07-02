@@ -38,7 +38,10 @@ export  function renderVans (vans){
                 }}
             >
                 <div className="img-wrapper">
-                <img src={van.imageURL}  alt={`Image of ${van.name}`}/>
+                    <picture>
+                    <source srcset={van.imageURL} type="image/webp"/>
+                        <img src={van.imageURL}  alt={`Image of ${van.name}`}/>
+                    </picture>
                 </div>
              
 

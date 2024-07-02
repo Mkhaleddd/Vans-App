@@ -23,7 +23,10 @@ export default function VanDetail() {
                 {(van)=>{
                     return(
                         <div className="van-detail">
+                            <picture>
+                            <source srcset={van.imageURL} type="image/webp"/>
                             <img src={van.imageURL} alt={`Image of ${van.name}`}/>
+                            </picture>
                             <i className={`van-type ${van.type} selected`}>
                                 {van.type}
                             </i>

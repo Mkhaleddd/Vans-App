@@ -13,11 +13,15 @@ export default function Income() {
                 Last <span>30 days</span>
             </p>
             <h2>$2,260</h2>
-            <img
-                className="graph"
-                src={IncomeIMG}
-                alt="Income graph"
-            />
+            <picture>
+                    <source srcset={IncomeIMG} 
+                    type="image/webp"/>
+                    <img
+                        className="graph"
+                        src={IncomeIMG}
+                        alt="Income graph"
+                    />
+            </picture>
             <div className="info-header">
                 <h3>Your transactions (3)</h3>
                 <p>
