@@ -48,7 +48,9 @@ header .site-logo {
   font-weight: 900;
   font-size: 25px;
 }
-
+header .site-logo:hover{
+  text-decoration: none;
+}
 header a {
   text-decoration: none;
   color: #4D4D4D;
@@ -123,8 +125,6 @@ main {
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
 }
-
-
 
 
 .site-logo {
@@ -294,7 +294,7 @@ button:hover,button:focus{
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   gap: 34px;
-  margin-top: 57px;
+  margin-top: 2em;
 }
 
 .van-tile a {
@@ -431,11 +431,13 @@ i[class*='van-type-'] {
 .van-detail img {
   border-radius: 5px;
   margin-block: 47px;
+  width: 100%;
+
 }
 
 .van-detail h2 {
   font-size: 2rem;
-  margin-bottom: 10px;
+   width: 100%;
 }
 
 .van-detail > i {
@@ -950,6 +952,12 @@ img.graph {
   .fake-logOut-btn{
     padding-left: 1.5em;
   }
+  .img-wrapper::before,.img-wrapper::after{
+    top: 0.5em;
+    right: 0.5em;
+    left:1em;
+    bottom: 1em;
+  }
 }
 /*////////////////////// MOBILE Nav ///////////////////////  */
 
@@ -998,7 +1006,7 @@ img.graph {
     height: 4px;
     width: 100%;
     border-radius: 10px;
-    background: white;
+    background: black;
   }
 
   .navbar-container .hamburger-lines .line1 {

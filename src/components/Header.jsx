@@ -24,17 +24,17 @@ export default function Header() {
               <span class="line line3"></span>
           </div>
           <ul class="menu-items">
-              <li> <NavLink 
-                    to="/host"
-                    style={({isActive}) => isActive ? activeStyles : null}
-                >
-                    Host
-                </NavLink></li>
-              <li><NavLink 
+             <li><NavLink 
                     to="/about"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
                     About
+                </NavLink></li>
+                 <li> <NavLink 
+                    to="/host"
+                    style={({isActive}) => isActive ? activeStyles : null}
+                >
+                    Host
                 </NavLink></li>
               <li><NavLink 
                     to="/vans"
@@ -52,7 +52,7 @@ export default function Header() {
                 </button>
               </li>
           </ul>
-          <Link className="site-logo" to="/">#VanLife</Link>
+          <Link className="site-logo" to="/Vans-App">#VanLife</Link>
       </div>
             </nav>
         </header>
