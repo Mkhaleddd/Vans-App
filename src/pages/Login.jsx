@@ -50,11 +50,13 @@ export default function Login() {
                     name="email"
                     type="email"
                     placeholder="Email address"
+                    required
                 />
                 <input
                     name="password"
                     type="password"
                     placeholder="Password"
+                    required
                 />
                 <button
                     disabled={navigation.state === "submitting"}

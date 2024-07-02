@@ -1,5 +1,4 @@
 import React from "react"
-import { FiLogOut } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
 
@@ -16,33 +15,45 @@ export default function Header() {
     return (
         <header aria-label="primary navigation">
             <a href="#content" className="skip-nav-link">skip navigation</a>
-            <Link className="site-logo" to="/">#VanLife</Link>
-            <nav >
-                <NavLink 
+            <nav class="navbar" role="navigation">
+      <div class="navbar-container container">
+          <input type="checkbox" />
+          <div class="hamburger-lines">
+              <span class="line line1"></span>
+              <span class="line line2"></span>
+              <span class="line line3"></span>
+          </div>
+          <ul class="menu-items">
+              <li> <NavLink 
                     to="/host"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
                     Host
-                </NavLink>
-                <NavLink 
+                </NavLink></li>
+              <li><NavLink 
                     to="/about"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
                     About
-                </NavLink>
-                <NavLink 
+                </NavLink></li>
+              <li><NavLink 
                     to="/vans"
                     style={({isActive}) => isActive ? activeStyles : null}
                 >
                     Vans
-                </NavLink>
-                <Link to="/login" className="login-link">
+                </NavLink></li>
+                <li><Link to="/login" className="login-link">
                          <FaRegCircleUser />
                 </Link>
-                <button onClick={fakeLogOut} className="fake-logOut-btn">
-                            <FiLogOut />
+                </li>
+              <li>
+                 <button onClick={fakeLogOut} className="fake-logOut-btn">
+                           Log out
                 </button>
-                
+              </li>
+          </ul>
+          <Link className="site-logo" to="/">#VanLife</Link>
+      </div>
             </nav>
         </header>
     )
