@@ -1,7 +1,8 @@
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore,collection,getDocs,getDoc,doc,query, where} from "firebase/firestore/lite"
+import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKu18ESzgvLJoGg8GayygeLODqQ4dZDZk",
@@ -17,6 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db=getFirestore(app);
 const vanCollection=collection(db,"vans");
+export const auth = getAuth(app);
 
 
 export async function getVans(){
@@ -38,21 +40,3 @@ export async function getHostVans(){
         return DataObjArr
 }
 
-
-
-export async function loginUser(creds) {
-    const res = await fetch("/api/login",
-        { method: "post", body: JSON.stringify(creds) }
-    )
-    const vanCollection = await res.json()
-
-    if (!res.ok) {
-        throw {
-            message: vanCollection.message,
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-
-    return vanCollection
-}

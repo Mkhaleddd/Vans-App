@@ -1,72 +1,57 @@
-import React from "react"
-import {
-    useLoaderData,
-    useNavigation,
-    Form,
-    redirect,
-    useActionData
-} from "react-router-dom"
-import { loginUser } from "../api"
+import React ,{useState,useContext}from "react"
+import {NavLink,useNavigate} from "react-router-dom"
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../api";
 
-export function loader({ request }) {
-    return new URL(request.url).searchParams.get("message")
-}
-
-export async function action({ request }) {
-    const formData = await request.formData()
-    const email = formData.get("email")
-    const password = formData.get("password")
-    const pathname = new URL(request.url)
-        .searchParams.get("redirectTo") || "/host"
-    
-    try {
-         await loginUser({ email, password })
-        localStorage.setItem("loggedin", true)
-        const res= redirect(pathname)
-        res.body=true
-        return  res
-    } catch(err) {
-        return err.message
-    }
-}
 
 export default function Login() {
-    const errorMessage = useActionData()
-    const message = useLoaderData()
-    const navigation = useNavigation()
 
+  const navigate = useNavigate();
+    const [error, setError] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/host")
+        
+      } catch (error) {
+        setError(error.message)
+      }
+    };
+  
+   
+   
+    
     return (
         <div className="login-container">
             <h1>Sign in to your account</h1>
-            {message && <h3 className="red" aria-label="assertive">{message}</h3>}
-            {errorMessage && <h3 className="red" aria-live="assertive">{errorMessage}</h3>}
+            {error && <h3 className="red" aria-live="assertive">{error}</h3>}
 
-            <Form 
-                method="post" 
-                className="login-form" 
-                replace
-            >
+            <form className="login-form" onSubmit={handleSubmit}>
                 <input
                     name="email"
                     type="email"
                     placeholder="Email address"
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                 />
                 <input
                     name="password"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
                 <button
-                    disabled={navigation.state === "submitting"}
+                  
                 >
-                    {navigation.state === "submitting"
-                        ? "Logging in..."
-                        : "Log in"
-                    }
+                    login
                 </button>
-            </Form>
+                <p>Don't have an Account?</p><NavLink to="/signup">Sign Up</NavLink>
+            </form>
         </div>
     )
 }

@@ -6,7 +6,7 @@ export default function About() {
     return (
         <div className="about-page-container">
             <picture>
-            <source srcset={bgImg} type="image/webp"/>
+            <source srcSet={bgImg} type="image/webp"/>
             <img src={bgImg} className="about-hero-image" />
             </picture>
             <div className="about-page-content">

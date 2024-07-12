@@ -39,7 +39,7 @@ export  function renderVans (vans){
             >
                 <div className="img-wrapper">
                     <picture>
-                    <source srcset={van.imageURL} type="image/webp"/>
+                    <source srcSet={van.imageURL} type="image/webp"/>
                         <img src={van.imageURL}  alt={`Image of ${van.name}`}/>
                     </picture>
                 </div>
@@ -95,16 +95,3 @@ export  function renderVans (vans){
 
 
 
-export async function requireAuth(request) {
-    const pathname = new URL(request.url).pathname
-    const isLoggedIn = localStorage.getItem("loggedin")
-
-    if (!isLoggedIn) {
-        const res= redirect(
-            `/login?message=You must log in first.&redirectTo=${pathname}`
-        )
-        res.body=true 
-        throw res
-    }
-    return null
-}

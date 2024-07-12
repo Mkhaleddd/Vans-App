@@ -30,7 +30,7 @@ export default function Reviews() {
             </div>
             <picture>
                     <source 
-                    srcset={reviewIG}
+                    srcSet={reviewIG}
                      type="image/webp"/>
                     <img
                         className="graph"

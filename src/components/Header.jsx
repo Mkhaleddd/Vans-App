@@ -1,29 +1,38 @@
 import React from "react"
 import { FaRegCircleUser } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink ,useNavigate} from "react-router-dom";
+import {auth} from "../api"
 
 export default function Header() {
+    const navigate=useNavigate()
     const activeStyles = {
         fontWeight: "bold",
         textDecoration: "underline",
         color: "#161616"
     }
-    
-    function fakeLogOut() {
-        localStorage.removeItem("loggedin")
-    }
+
+    async function handleLogout() {
+        try {
+          await auth.signOut();
+          navigate( "/login");
+          console.log("User logged out successfully!");
+        } catch (error) {
+          console.error("Error logging out:", error.message);
+        }
+      }
+ 
     return (
         <header aria-label="primary navigation">
             <a href="#content" className="skip-nav-link">skip navigation</a>
-            <nav class="navbar" role="navigation">
-      <div class="navbar-container container">
-          <input type="checkbox" />
-          <div class="hamburger-lines">
-              <span class="line line1"></span>
-              <span class="line line2"></span>
-              <span class="line line3"></span>
+            <nav className="navbar" role="navigation">
+      <div className="navbar-container container">
+          <input type="checkbox"  aria-label="toggle"/>
+          <div className="hamburger-lines">
+              <span className="line line1"></span>
+              <span className="line line2"></span>
+              <span className="line line3"></span>
           </div>
-          <ul class="menu-items">
+          <ul className="menu-items">
              <li><NavLink 
                     to="/about"
                     style={({isActive}) => isActive ? activeStyles : null}
@@ -47,7 +56,7 @@ export default function Header() {
                 </Link>
                 </li>
               <li>
-                 <button onClick={fakeLogOut} className="fake-logOut-btn">
+                 <button onClick={handleLogout} className="fake-logOut-btn">
                            Log out
                 </button>
               </li>

@@ -14,7 +14,7 @@ export default function Income() {
             </p>
             <h2>$2,260</h2>
             <picture>
-                    <source srcset={IncomeIMG} 
+                    <source srcSet={IncomeIMG} 
                     type="image/webp"/>
                     <img
                         className="graph"
