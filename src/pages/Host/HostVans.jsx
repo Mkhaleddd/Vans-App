@@ -4,7 +4,7 @@ import { getHostVans } from "../../api"
 
 import ReactLoading from 'react-loading';
 
-export async function loader({ request }) {
+export async function loader() {
 
     return  defer({vans:getHostVans()})
 }
@@ -20,10 +20,8 @@ export default function HostVans() {
                 className="host-van-link-wrapper"
             >
                 <div className="host-van-single" key={van.id}>
-                <picture>
-                        <source srcSet={van.imageURL} type="image/webp"/>
                         <img src={van.imageURL} alt={`Photo of ${van.name}`} />
-                </picture>
+             
                     <div className="host-van-info">
                         <h3>{van.name}</h3>
                         <p>${van.price}/day</p>

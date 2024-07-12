@@ -3,7 +3,7 @@ import {  Await, Link, NavLink, Outlet,defer,useLoaderData } from "react-router-
 import { getVan } from "../../api"
 import ReactLoading from 'react-loading';
 
-export async function loader({params,request}) {
+export async function loader({params}) {
 
     return  defer({currentVan: getVan(params.id)})
     }
@@ -33,10 +33,8 @@ export default function HostVanDetail() {
                     <>
                 
                                     <div className="host-van-detail">
-                                    <picture>
-                                        <source srcSet={currentVan.imageURL} type="image/webp"/>
                                         <img src={currentVan.imageURL} alt={`Image of ${currentVan.name}`} />
-                                    </picture>
+                               
                                         <div className="host-van-detail-info-text">
                                             <i
                                                 className={`van-type van-type-${currentVan.type}`}

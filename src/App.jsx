@@ -7,13 +7,13 @@ import {
 } from "react-router-dom"
 import Home from "./pages/Home"
 import About from "./pages/About"
-import { loader as vansLoader } from "./pages/Vans/Vans"
-import  { loader as vanDetailLoader } from "./pages/Vans/VanDetail"
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans"
+import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail"
 import Dashboard ,{loader as DashboardLoader}from "./pages/Host/Dashboard"
 import Income from "./pages/Host/Income"
 import Reviews from "./pages/Host/Reviews"
-import  { loader as hostVansLoader} from "./pages/Host/HostVans"
-import  { loader as hostVanDetailLoader } from "./pages/Host/HostVanDetail"
+import HostVans, { loader as hostVansLoader} from "./pages/Host/HostVans"
+import HostVanDetail, { loader as hostVanDetailLoader } from "./pages/Host/HostVanDetail"
 import HostVanInfo from "./pages/Host/HostVanInfo"
 import HostVanPricing from "./pages/Host/HostVanPricing"
 import HostVanPhotos from "./pages/Host/HostVanPhotos"
@@ -24,11 +24,6 @@ import Layout from "./components/Layout"
 import HostLayout from "./components/HostLayout"
 import Error from "./pages/Error"
 import {auth} from './api'
-
-const VansLazy = React.lazy(() => import('./pages/Vans/Vans'));
-const VanDetailLazy=React.lazy(() => import('./pages/Vans/VanDetail'));
-const HostVansLazy=React.lazy(() => import('./pages/Host/HostVans'));
-const HostVanDetailLazy=React.lazy(() => import('./pages/Host/HostVanDetail'));
 
 export default function App() {
   const [user, setUser] = useState();
@@ -55,13 +50,13 @@ const router = createBrowserRouter(createRoutesFromElements(
     
     <Route
       path="vans"
-      element={<VansLazy />}
+      element={<Vans />}
       errorElement={<Error />}
       loader={vansLoader}
     />
     <Route 
       path="vans/:id" 
-      element={<VanDetailLazy />} 
+      element={<VanDetail />} 
       loader={vanDetailLoader}
       errorElement={<Error />}
     />
@@ -85,13 +80,13 @@ const router = createBrowserRouter(createRoutesFromElements(
       />
       <Route
         path="vans"
-        element={<HostVansLazy />}
+        element={<HostVans />}
         loader={hostVansLoader}
         errorElement={<Error />}
       />
       <Route
         path="vans/:id"
-        element={<HostVanDetailLazy />}
+        element={<HostVanDetail />}
         loader={hostVanDetailLoader}
         errorElement={<Error />}
       >

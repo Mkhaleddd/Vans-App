@@ -15,11 +15,9 @@ export default function Header() {
         try {
           await auth.signOut();
           navigate( "/login");
-          console.log("User logged out successfully!");
         } catch (error) {
-          console.error("Error logging out:", error.message);
-        }
-      }
+            return null
+        }}
  
     return (
         <header aria-label="primary navigation">
