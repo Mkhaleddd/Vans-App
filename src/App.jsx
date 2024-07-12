@@ -28,7 +28,7 @@ import {auth} from './api'
 const VansLazy = React.lazy(() => import('./pages/Vans/Vans'));
 const VanDetailLazy=React.lazy(() => import('./pages/Vans/VanDetail'));
 const HostVansLazy=React.lazy(() => import('./pages/Host/HostVans'));
-const HostVanDetialLazy=React.lazy(() => import('./pages/Host/HostVanDetail'));
+const HostVanDetailLazy=React.lazy(() => import('./pages/Host/HostVanDetail'));
 
 export default function App() {
   const [user, setUser] = useState();
