@@ -19,13 +19,15 @@ export default function SinglePageLog({title,login,description,navText}) {
     const navigate = useNavigate();
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    const provider = new GoogleAuthProvider();
-    function googleLoginDeskTop() {
+    
+    async function googleLoginDeskTop() {
+        const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider).then(async () => {
          navigate("/host")  })
        
         }
-        function googleLoginMobile() {
+    async  function googleLoginMobile() {
+           const provider = new GoogleAuthProvider();
             signInWithRedirect(auth, provider).then(async () => {
             navigate("/host")  })
             }

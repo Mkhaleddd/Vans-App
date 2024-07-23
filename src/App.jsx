@@ -5,6 +5,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom"
+import  Layout from "./components/Layout"
 import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
 import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail";
 import Dashboard ,{loader as DashboardLoader}from "./pages/Host/Dashboard";
@@ -25,7 +26,6 @@ export default function App() {
   const Login=React.lazy(()=>import("./pages/Login"));
   const SignUp=React.lazy(()=>import("./pages/SignUp"));
   const Error=React.lazy(()=>import("./pages/Error"));
-  const Layout =React.lazy(()=>import("./components/Layout"));
   const  HostLayout=React.lazy(()=>import("./components/HostLayout"));
   
 
@@ -37,10 +37,7 @@ export default function App() {
  });
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route path="/" element={<React.Suspense 
-    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-      <Layout />
-    </React.Suspense>}>
+  <Route path="/" element={<Layout />}>
     <Route path='Vans-App' element={<React.Suspense 
     fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
       <Home />
