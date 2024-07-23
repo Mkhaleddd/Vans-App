@@ -6,7 +6,8 @@ import {
 import { createUserWithEmailAndPassword
     ,signInWithEmailAndPassword
     ,GoogleAuthProvider
-    ,signInWithPopup } 
+    ,signInWithPopup
+    ,signInWithRedirect } 
     from "firebase/auth";
 import {auth} from '../api';
 import { FcGoogle } from "react-icons/fc";
@@ -18,10 +19,17 @@ export default function SinglePageLog({title,login,description,navText}) {
     const navigate = useNavigate();
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    function googleLogin() {
-        const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
+    function googleLoginDeskTop() {
         signInWithPopup(auth, provider).then(async () => {
-         navigate("/host")  })}
+         navigate("/host")  })
+       
+        }
+        function googleLoginMobile() {
+            signInWithRedirect(auth, provider).then(async () => {
+            navigate("/host")  })
+            }
+         
     const handleSingUp= async (e) => {
         e.preventDefault();
         if(password!=match) {
@@ -90,8 +98,11 @@ export default function SinglePageLog({title,login,description,navText}) {
                 {login &&<>
                 <div>
                     or Contiune With
-                    <button id="google-signin"
-                    onClick={googleLogin}> <FcGoogle />oogle
+                    <button id="google-signin-desktop"
+                    onClick={googleLoginDeskTop}> <FcGoogle />oogle
+                    </button>
+                    <button id="google-signin-mobile"
+                    onClick={googleLoginMobile}> <FcGoogle />oogle
                     </button>
                 </div>
                 </>}

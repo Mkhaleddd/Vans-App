@@ -5,27 +5,30 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom"
-import Home from "./pages/Home"
-import About from "./pages/About"
-import Vans, { loader as vansLoader } from "./pages/Vans/Vans"
-import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail"
-import Dashboard ,{loader as DashboardLoader}from "./pages/Host/Dashboard"
-import Income from "./pages/Host/Income"
-import Reviews from "./pages/Host/Reviews"
-import HostVans, { loader as hostVansLoader} from "./pages/Host/HostVans"
-import HostVanDetail, { loader as hostVanDetailLoader } from "./pages/Host/HostVanDetail"
-import HostVanInfo from "./pages/Host/HostVanInfo"
-import HostVanPricing from "./pages/Host/HostVanPricing"
-import HostVanPhotos from "./pages/Host/HostVanPhotos"
-import NotFound from "./pages/NotFound"
-import Login from "./pages/Login"
-import SignUp from "./pages/SignUp"
-import Layout from "./components/Layout"
-import HostLayout from "./components/HostLayout"
-import Error from "./pages/Error"
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
+import VanDetail, { loader as vanDetailLoader } from "./pages/Vans/VanDetail";
+import Dashboard ,{loader as DashboardLoader}from "./pages/Host/Dashboard";
+import HostVans, { loader as hostVansLoader} from "./pages/Host/HostVans";
+import HostVanDetail, { loader as hostVanDetailLoader } from "./pages/Host/HostVanDetail";
 import {auth} from './api'
+import ReactLoading from 'react-loading';
 
 export default function App() {
+  const NotFound=React.lazy(()=>import("./pages/NotFound"));
+  const Home=React.lazy(()=>import("./pages/Home"));
+  const About=React.lazy(()=>import("./pages/About"));
+  const Income=React.lazy(()=>import("./pages/Host/Income"));
+  const Reviews=React.lazy(()=>import("./pages/Host/Reviews"));
+  const HostVanInfo=React.lazy(()=>import("./pages/Host/HostVanInfo"));
+  const HostVanPricing=React.lazy(()=>import("./pages/Host/HostVanInfo"));
+  const HostVanPhotos=React.lazy(()=>import( "./pages/Host/HostVanPhotos"));
+  const Login=React.lazy(()=>import("./pages/Login"));
+  const SignUp=React.lazy(()=>import("./pages/SignUp"));
+  const Error=React.lazy(()=>import("./pages/Error"));
+  const Layout =React.lazy(()=>import("./components/Layout"));
+  const  HostLayout=React.lazy(()=>import("./components/HostLayout"));
+  
+
   const [user, setUser] = useState();
  useEffect(() => {
    auth.onAuthStateChanged((user) => {
@@ -34,81 +37,141 @@ export default function App() {
  });
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route path="/" element={<Layout />}>
-    <Route path='Vans-App' element={<Home />} />
-    <Route path="about" element={<About />} />
+  <Route path="/" element={<React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <Layout />
+    </React.Suspense>}>
+    <Route path='Vans-App' element={<React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <Home />
+    </React.Suspense>} />
+    <Route path="about" element={<React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <About />
+    </React.Suspense>}  />
     <Route
       path="login"
-      element={<Login />}
-      errorElement={<Error />}
+      element={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Login/>
+        </React.Suspense>}
+      errorElement={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Error />
+        </React.Suspense>}
     />
     <Route
       path="signup"
-      errorElement={<Error />}
-      element={<SignUp />}
+      errorElement={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Error />
+        </React.Suspense>}
+      element={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <SignUp />
+        </React.Suspense>}
     />
     
     <Route
       path="vans"
       element={<Vans />}
-      errorElement={<Error />}
+      errorElement={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Error />
+        </React.Suspense>}
       loader={vansLoader}
     />
     <Route 
       path="vans/:id" 
       element={<VanDetail />} 
       loader={vanDetailLoader}
-      errorElement={<Error />}
+      errorElement={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Error />
+        </React.Suspense>}
     />
 
 
-    <Route  path="host" element={user ? <HostLayout /> : <Login />}>
+    <Route  path="host" element={user ? <React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <HostLayout />
+    </React.Suspense>: <React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <Login />
+    </React.Suspense>}>
         <Route
         index
         element={<Dashboard />}
         loader={DashboardLoader}
-        errorElement={<Error />}
+        errorElement={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <Error />
+          </React.Suspense>}
       />
       <Route
         path="income"
-        element={<Income />}
+        element={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <Income />
+          </React.Suspense>}
     
       />
       <Route
         path="reviews"
-        element={<Reviews />}
+        element={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <Reviews />
+          </React.Suspense>}
       />
       <Route
         path="vans"
         element={<HostVans />}
         loader={hostVansLoader}
-        errorElement={<Error />}
+        errorElement={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <Error />
+          </React.Suspense>}
       />
       <Route
         path="vans/:id"
         element={<HostVanDetail />}
         loader={hostVanDetailLoader}
-        errorElement={<Error />}
+        errorElement={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <Error />
+          </React.Suspense>}
       >
         <Route
           index
-          element={<HostVanInfo />}
+          element={<React.Suspense 
+            fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+              <HostVanInfo />
+            </React.Suspense>}
        
         />
         <Route
           path="pricing"
-          element={<HostVanPricing />}
+          element={<React.Suspense 
+            fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+              <HostVanPricing />
+            </React.Suspense>}
         
         />
         <Route
           path="photos"
-          element={<HostVanPhotos />}
+          element={<React.Suspense 
+            fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+              <HostVanPhotos/>
+            </React.Suspense>}
         
         />
       </Route>
     </Route>
 
-    <Route path="*" element={<NotFound />} />
+    <Route path="*" element={<React.Suspense 
+    fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+      <NotFound />
+    </React.Suspense>} />
   </Route>
 ))
 
