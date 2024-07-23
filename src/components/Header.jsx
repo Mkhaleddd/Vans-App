@@ -54,7 +54,7 @@ export default function Header() {
                 </Link>
                 </li>
               <li>
-                 <button onClick={handleLogout} className="fake-logOut-btn">
+                 <button onClick={handleLogout} className="logOut-btn">
                            Log out
                 </button>
               </li>

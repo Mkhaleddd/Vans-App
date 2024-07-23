@@ -1,8 +1,5 @@
 
-import {redirect,Link,useSearchParams} from "react-router-dom"
-
- 
-
+import {Link,useSearchParams} from "react-router-dom"
 
 export  function renderVans (vans){
     const [searchParams,setSearchParams]=useSearchParams()
