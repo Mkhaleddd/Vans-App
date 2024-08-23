@@ -1,4 +1,4 @@
-import React,{ useState } from "react"
+import React,{ useEffect, useState } from "react"
 import {
     NavLink,
     useNavigate
@@ -12,7 +12,7 @@ import { createUserWithEmailAndPassword
 import {auth} from '../api';
 import { FcGoogle } from "react-icons/fc";
 
-export default function SinglePageLog({title,login,description,navText}) {
+export default function SinglePageLog({title,login,description,navText,hidePassword}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [match, setMatch] = useState("");
@@ -48,7 +48,7 @@ export default function SinglePageLog({title,login,description,navText}) {
           setError(error.message)
          
         }} 
-        const handleLogIn = async (e) => {
+    const handleLogIn = async (e) => {
             e.preventDefault();
             try {
               setLoading(true)
@@ -60,6 +60,16 @@ export default function SinglePageLog({title,login,description,navText}) {
               setError(error.message)
             }
           };
+const togglePassword = document.querySelector("#togglePassword");
+const pass = document.querySelector("#password");
+  
+    useEffect(()=>{
+            togglePassword?.addEventListener("click", function () {
+                    console.log("hhhh")
+                    const type = pass.getAttribute("type") === "password" ? "text" : "password";
+                    pass.setAttribute("type", type);
+                    this.classList.toggle("bi-eye");});
+        },[togglePassword])        
 
     return (
         <div className="login-container">
@@ -75,12 +85,15 @@ export default function SinglePageLog({title,login,description,navText}) {
                     required
                 />
                 <input
+                    id="password"
                     name="password"
                     type="password"
                     placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                />{!login&&
+                />
+                {hidePassword&&<i className="bi bi-eye-slash" id="togglePassword"></i>}
+                {!login&&
                  <input
                     name="match-password"
                     type="password"

@@ -10,6 +10,7 @@ export default function Login() {
        login={true}
        description={"Don't have an account?"}
        navText={"Sing Up"}
+       hidePassword={true}
        />
     )
 }
