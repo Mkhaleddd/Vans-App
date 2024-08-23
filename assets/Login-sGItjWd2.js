@@ -1,1 +1,0 @@
-import{j as t}from"./index-EJWvm2s4.js";import{S as n}from"./SinglePageLog-PsauQsuB.js";function a(){return t.jsx(n,{title:"Create an Account",login:!0,description:"Don't have an account?",navText:"Sing Up"})}export{a as default};
