@@ -26,6 +26,7 @@ export default function App() {
   const Login=React.lazy(()=>import("./pages/Login"));
   const SignUp=React.lazy(()=>import("./pages/SignUp"));
   const Error=React.lazy(()=>import("./pages/Error"));
+  const PaymentCard=React.lazy(()=>import('./components/PaymentCard'))
   const  HostLayout=React.lazy(()=>import("./components/HostLayout"));
   
 
@@ -88,7 +89,14 @@ const router = createBrowserRouter(createRoutesFromElements(
         </React.Suspense>}
     />
 
-
+<Route 
+      path="vans/booking" 
+      element={<PaymentCard />} 
+      errorElement={<React.Suspense 
+        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+          <Error />
+        </React.Suspense>}
+    />
     <Route  path="host" element={user ? <React.Suspense 
     fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
       <HostLayout />

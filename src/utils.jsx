@@ -1,18 +1,20 @@
 
+import { useState } from "react";
 import {Link,useSearchParams} from "react-router-dom"
+import { FaSearch } from "react-icons/fa";
 
 export  function renderVans (vans){
     const [searchParams,setSearchParams]=useSearchParams()
+    const [q, setQ] = useState("");
     const typeFilter=searchParams.get("type");
- 
+    const searchedVans=vans.filter(van=>van.name.toLowerCase().includes(q)>0 )
     const displayedVans = typeFilter
-        ? vans.filter(van => van.type === typeFilter)
-        : vans
-
+        ? searchedVans.filter(van => van.type === typeFilter)
+        : searchedVans
+    
     function handleChangeFilter(key,value){
         if(key!="type") return; //early exist
         setSearchParams(prev=>{
-        
         if ( value==null ){
             prev.delete(key) 
         }
@@ -22,16 +24,23 @@ export  function renderVans (vans){
             return prev
       })
     }
+    const search=(e)=>{
+         setSearchParams(prev=>{  
+         return {...prev,q}})  
+       setQ(e.target.value)
+    }
     
     const vanElements = displayedVans.map(van => (
         <div key={van.id} className="van-tile">
             <Link
                 to={van.id}
+            
                 aria-label={`View details for ${van.name}, 
                 priced at $${van.price} per day`}
                 state={{
                     search: `?${searchParams.toString()}`,
-                    type: typeFilter
+                    type: typeFilter,
+                    q:q
                 }}
             >
                 <div className="img-wrapper">
@@ -52,11 +61,12 @@ export  function renderVans (vans){
         <div className="van-list-filter-buttons">
         <button
             className={
-            `van-type simple 
-            ${typeFilter === "simple" ? "selected" : ""}`
-            }   
-            onClick={()=>handleChangeFilter({"type":"simple"})}
+                `van-type simple
+                ${typeFilter === "simple" ? "selected" : ""}`
+            }
+            onClick={()=>handleChangeFilter("type","simple")}
         >Simple</button>
+       
         <button
             className={
                 `van-type luxury 
@@ -78,7 +88,20 @@ export  function renderVans (vans){
     >clear filters</button>
     :null
       }
+<div class="box">
+    
+        <input 
+         type="text"
+          class="input" 
+          name="search" 
+          onmouseout="this.value = ''; this.blur();"
+          value={q}
+          onChange={(e)=>search(e)}
+        />
+    <FaSearch />
 
+</div>
+     
     </div>
     <div className="van-list">
         {vanElements}
