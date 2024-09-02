@@ -127,8 +127,15 @@ display: none;
 }
 @media(max-width:625px){
   .van-list{
-    grid-template-columns: 1fr
-}
+    grid-template-columns: 1fr;
+    .img-wrapper,img{
+      width: 250px;
+      height: 250px;
+    }
+    .link-button{
+      justify-self: center;
+    }
+        }
   
     div.box {
         display: flex;
