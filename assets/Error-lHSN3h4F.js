@@ -1,0 +1,1 @@
+import{g as e,j as r}from"./index-hAXMLF_A.js";function o(){const s=e();return r.jsxs(r.Fragment,{children:[r.jsxs("h1",{children:["Error:",s.message]}),r.jsxs("pre",{children:[s.status,"-",s.statusText]})]})}export{o as default};
