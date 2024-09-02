@@ -1,1 +1,0 @@
-import{j as t}from"./index-vlB7_En3.js";import{S as e}from"./SinglePageLog-BT3zZ9fi.js";function r(){return t.jsx(e,{title:"Create an Account",login:!0,description:"Don't have an account?",navText:"Sing Up",hidePassword:!0})}export{r as default};
