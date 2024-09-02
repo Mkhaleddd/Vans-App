@@ -4,6 +4,7 @@ import {Link,useSearchParams} from "react-router-dom"
 import { FaSearch } from "react-icons/fa";
 
 export  function renderVans (vans){
+    const[page,setPage]=useState(4)
     const [searchParams,setSearchParams]=useSearchParams()
     const [q, setQ] = useState("");
     const typeFilter=searchParams.get("type");
@@ -29,8 +30,11 @@ export  function renderVans (vans){
          return {...prev,q}})  
        setQ(e.target.value)
     }
-    
-    const vanElements = displayedVans.map(van => (
+    const showMoreVans=()=>{
+       if (page+4<=vans.length) setPage(page+4)
+        else setPage(vans.length)
+    }
+    const vanElements = displayedVans.slice(0,page).map(van => (
         <div key={van.id} className="van-tile">
             <Link
                 to={van.id}
@@ -88,13 +92,12 @@ export  function renderVans (vans){
     >clear filters</button>
     :null
       }
-<div class="box">
-    
+<div className="box">
         <input 
          type="text"
-          class="input" 
+          className="input" 
           name="search" 
-          onmouseout="this.value = ''; this.blur();"
+          onMouseOut={(e)=>e.target.value = ""}
           value={q}
           onChange={(e)=>search(e)}
         />
@@ -105,6 +108,12 @@ export  function renderVans (vans){
     </div>
     <div className="van-list">
         {vanElements}
+        {<button
+        onClick={showMoreVans}
+        className={page>=vans.length?"hide":"link-button"}
+        >
+            Show More
+        </button>}
     </div>
     </>
     )
