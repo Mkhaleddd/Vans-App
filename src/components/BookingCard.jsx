@@ -6,22 +6,19 @@ import { useNavigate } from 'react-router';
 
 
 export default function BookingCard({price}) {
-const navigate = useNavigate();
- 
-
-const notifyBookingError=(text)=>{
-    toast.error(text, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light"
-    })
-}
- 
+    const navigate = useNavigate();
+    const notifyBookingError=(text)=>{
+        toast.error(text, {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+        })
+    }
     const handleBook=()=>{
         let location=new Date(document.getElementById("location")?.value);
         let pickup = document.getElementById("pickup")?.value;
@@ -52,10 +49,8 @@ const notifyBookingError=(text)=>{
         })
         success()
         navigate("../vans/booking")
-    }
-    }
+    }}
     
-      
     return (
         <>
         <div className="rent-form start">

@@ -2,12 +2,15 @@
 import { useState } from "react";
 import {Link,useSearchParams} from "react-router-dom"
 import { FaSearch } from "react-icons/fa";
+import useDebounce from "./hooks/useDebounce";
 
 export  function renderVans (vans){
     const[page,setPage]=useState(4)
     const [searchParams,setSearchParams]=useSearchParams()
     const [q, setQ] = useState("");
+    const debounceVal=useDebounce(q)
     const typeFilter=searchParams.get("type");
+    
     const searchedVans=vans.filter(van=>van.name.toLowerCase().includes(q)>0 )
     const displayedVans = typeFilter
         ? searchedVans.filter(van => van.type === typeFilter)
@@ -25,10 +28,18 @@ export  function renderVans (vans){
             return prev
       })
     }
-    const search=(e)=>{
+    const search=(e="")=>{
+        if(debounceVal) {
          setSearchParams(prev=>{  
          return {...prev,q}})  
-       setQ(e.target.value)
+         setQ(debounceVal)
+        }
+        else{
+            setSearchParams(prev=>{  
+                return {...prev,q}})  
+                setQ(e.target.value)
+        }
+
     }
     const showMoreVans=()=>{
        if (page+4<=vans.length) setPage(page+4)
@@ -44,7 +55,7 @@ export  function renderVans (vans){
                 state={{
                     search: `?${searchParams.toString()}`,
                     type: typeFilter,
-                    q:q
+                    q:debounceVal
                 }}
             >
                 <div className="img-wrapper">
@@ -97,7 +108,7 @@ export  function renderVans (vans){
          type="text"
           className="input" 
           name="search" 
-          onMouseOut={(e)=>e.target.value = ""}
+          onMouseOut={()=>setQ("")}
           value={q}
           onChange={(e)=>search(e)}
         />

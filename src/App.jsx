@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,lazy,memo} from 'react';
 import {
   RouterProvider,
   createBrowserRouter,
@@ -15,19 +15,20 @@ import {auth} from './api'
 import ReactLoading from 'react-loading';
 
 export default function App() {
-  const NotFound=React.lazy(()=>import("./pages/NotFound"));
-  const Home=React.lazy(()=>import("./pages/Home"));
-  const About=React.lazy(()=>import("./pages/About"));
-  const Income=React.lazy(()=>import("./pages/Host/Income"));
-  const Reviews=React.lazy(()=>import("./pages/Host/Reviews"));
-  const HostVanInfo=React.lazy(()=>import("./pages/Host/HostVanInfo"));
-  const HostVanPricing=React.lazy(()=>import("./pages/Host/HostVanInfo"));
-  const HostVanPhotos=React.lazy(()=>import( "./pages/Host/HostVanPhotos"));
-  const Login=React.lazy(()=>import("./pages/Login"));
-  const SignUp=React.lazy(()=>import("./pages/SignUp"));
-  const Error=React.lazy(()=>import("./pages/Error"));
-  const PaymentCard=React.lazy(()=>import('./components/PaymentCard'))
-  const  HostLayout=React.lazy(()=>import("./components/HostLayout"));
+  const NotFound=lazy(()=>import("./pages/NotFound"));
+  const Home=lazy(()=>import("./pages/Home"));
+  const About=lazy(()=>import("./pages/About"));
+  const Income=lazy(()=>import("./pages/Host/Income"));
+  const Reviews=lazy(()=>import("./pages/Host/Reviews"));
+  const HostVanInfo=memo(lazy(()=>import("./pages/Host/HostVanInfo")));
+  const HostVanPricing=memo(lazy(()=>import("./pages/Host/HostVanInfo")));
+  const HostVanPhotos=memo(lazy(()=>import( "./pages/Host/HostVanPhotos")));
+  const Login=lazy(()=>import("./pages/Login"));
+  const SignUp=lazy(()=>import("./pages/SignUp"));
+  const Error=memo(lazy(()=>import("./pages/Error")));
+  const PaymentCard=lazy(()=>import('./components/PaymentCard'))
+  const  HostLayout=lazy(()=>import("./components/HostLayout"));
+ 
   
 
   const [user, setUser] = useState();
@@ -69,7 +70,7 @@ const router = createBrowserRouter(createRoutesFromElements(
           <SignUp />
         </React.Suspense>}
     />
-    
+  
     <Route
       path="vans"
       element={<Vans />}
