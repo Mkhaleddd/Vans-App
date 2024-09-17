@@ -1,1 +1,0 @@
-import{j as t}from"./index-hAXMLF_A.js";import{S as e}from"./SinglePageLog-dt9LL_Oq.js";function o(){return t.jsx(e,{title:"Create an Account",login:!1,description:"Have an Account already?",navText:"Log In"})}export{o as default};
