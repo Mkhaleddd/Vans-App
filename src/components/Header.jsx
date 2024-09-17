@@ -2,6 +2,8 @@ import React from "react"
 import { FaRegCircleUser } from "react-icons/fa6";
 import { Link, NavLink ,useNavigate} from "react-router-dom";
 import {auth} from "../api"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Header() {
     const navigate=useNavigate()
@@ -10,11 +12,22 @@ export default function Header() {
         textDecoration: "underline",
         color: "#161616"
     }
-
+    const success=()=>toast.success('You are logged out', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+        
     async function handleLogout() {
         try {
           await auth.signOut();
           navigate( "/login");
+          success();
         } catch (error) {
             return null
         }}
@@ -62,6 +75,7 @@ export default function Header() {
           <Link className="site-logo" to="/Vans-App">#VanLife</Link>
       </div>
             </nav>
+            <ToastContainer />
         </header>
     )
 }

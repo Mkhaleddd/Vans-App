@@ -28,6 +28,7 @@ export default function App() {
   const Error=memo(lazy(()=>import("./pages/Error")));
   const PaymentCard=lazy(()=>import('./components/PaymentCard'))
   const  HostLayout=lazy(()=>import("./components/HostLayout"));
+  const HostProfile=lazy(()=>import("./pages/Host/HostProfile"))
  
   
 
@@ -54,17 +55,11 @@ const router = createBrowserRouter(createRoutesFromElements(
         fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
           <Login/>
         </React.Suspense>}
-      errorElement={<React.Suspense 
-        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-          <Error />
-        </React.Suspense>}
+      errorElement={<Error />}
     />
     <Route
       path="signup"
-      errorElement={<React.Suspense 
-        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-          <Error />
-        </React.Suspense>}
+      errorElement={<Error />}
       element={<React.Suspense 
         fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
           <SignUp />
@@ -74,29 +69,20 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route
       path="vans"
       element={<Vans />}
-      errorElement={<React.Suspense 
-        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-          <Error />
-        </React.Suspense>}
+      errorElement={<Error />}
       loader={vansLoader}
     />
     <Route 
       path="vans/:id" 
       element={<VanDetail />} 
       loader={vanDetailLoader}
-      errorElement={<React.Suspense 
-        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-          <Error />
-        </React.Suspense>}
+      errorElement={<Error />}
     />
 
 <Route 
       path="vans/booking" 
       element={<PaymentCard />} 
-      errorElement={<React.Suspense 
-        fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-          <Error />
-        </React.Suspense>}
+      errorElement={<Error />}
     />
     <Route  path="host" element={user ? <React.Suspense 
     fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
@@ -109,10 +95,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         index
         element={<Dashboard />}
         loader={DashboardLoader}
-        errorElement={<React.Suspense 
-          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-            <Error />
-          </React.Suspense>}
+        errorElement={<Error />}
       />
       <Route
         path="income"
@@ -130,22 +113,23 @@ const router = createBrowserRouter(createRoutesFromElements(
           </React.Suspense>}
       />
       <Route
+        path="profile"
+        element={<React.Suspense 
+          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
+            <HostProfile />
+          </React.Suspense>}
+      />
+      <Route
         path="vans"
         element={<HostVans />}
         loader={hostVansLoader}
-        errorElement={<React.Suspense 
-          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-            <Error />
-          </React.Suspense>}
+        errorElement={<Error />}
       />
       <Route
         path="vans/:id"
         element={<HostVanDetail />}
         loader={hostVanDetailLoader}
-        errorElement={<React.Suspense 
-          fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
-            <Error />
-          </React.Suspense>}
+        errorElement={<Error />}
       >
         <Route
           index

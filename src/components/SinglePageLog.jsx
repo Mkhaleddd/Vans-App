@@ -3,14 +3,19 @@ import {
     NavLink,
     useNavigate
 } from "react-router-dom";
-import { createUserWithEmailAndPassword
+import { 
+    createUserWithEmailAndPassword
     ,signInWithEmailAndPassword
     ,GoogleAuthProvider
     ,signInWithPopup
-    ,signInWithRedirect } 
+    ,signInWithRedirect
+       } 
     from "firebase/auth";
 import {auth} from '../api';
 import { FcGoogle } from "react-icons/fc";
+import { IoMdCheckmark } from "react-icons/io";
+import { FaXmark } from "react-icons/fa6";
+
 
 export default function SinglePageLog({title,login,description,navText,hidePassword}) {
     const [email, setEmail] = useState("");
@@ -19,7 +24,25 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
     const navigate = useNavigate();
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    
+    const [errors, setErrors] = useState({
+        minValueValidation: false,
+        numberValidation: false,
+        capitalLetterValidation: false,
+        specialCharacterValidation: false,
+      });
+      const validatePassword = (password) => {
+        setErrors({
+          minValueValidation: password.length >= 8,
+          numberValidation: /\d/.test(password),
+          capitalLetterValidation: /[A-Z]/.test(password),
+          specialCharacterValidation: /[^A-Za-z0-9]/.test(password),
+        });
+      }
+      const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        validatePassword(newPassword);
+      };
     async function googleLoginDeskTop() {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider).then(async () => {
@@ -37,12 +60,15 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
         if(password!=match) {
             setError("Passwords are not matched")
             return
-        }
+        } else setError("")
         try {
             setLoading(true)
-          await createUserWithEmailAndPassword(auth, email, password);
-          navigate('/login')
-          ;
+            if(Object.values(errors)===true)
+           {
+                await createUserWithEmailAndPassword(auth, email, password);
+                 navigate('/login')
+                    
+            }
         } catch (error) {
           setLoading(false)
           setError(error.message)
@@ -60,17 +86,16 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
               setError(error.message)
             }
           };
-const togglePassword = document.querySelector("#togglePassword");
-const pass = document.querySelector("#password");
-  
+    const togglePassword = document.querySelector("#togglePassword");
+    const pass = document.querySelector("#password");
+    
     useEffect(()=>{
             togglePassword?.addEventListener("click", function () {
-                    console.log("hhhh")
                     const type = pass.getAttribute("type") === "password" ? "text" : "password";
                     pass.setAttribute("type", type);
                     this.classList.toggle("bi-eye");});
         },[togglePassword])        
-
+   
     return (
         <div className="login-container">
             <h1>{title}</h1>
@@ -89,9 +114,10 @@ const pass = document.querySelector("#password");
                     name="password"
                     type="password"
                     placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange}
                     required
                 />
+        
                 {hidePassword&&<i className="bi bi-eye-slash" id="togglePassword"></i>}
                 {!login&&
                  <input
@@ -101,6 +127,21 @@ const pass = document.querySelector("#password");
                     onChange={(e) => setMatch(e.target.value)}
                     required
                 />}
+                {!login&&Object.entries(errors).map(([key, value]) => (
+                    <div key={key} className={`flex ${value?"green":" red"}`}>
+                    {value ? (
+                        <IoMdCheckmark />
+                    ) : (
+                        <FaXmark />
+                    )}
+                    <p >
+                        {key === 'minValueValidation' && 'Password must be at least 8 Characters'}
+                        {key === 'numberValidation' && 'Password must have at least one Number'}
+                        {key === 'capitalLetterValidation' && 'Password must have at least one Capital Letter'}
+                        {key === 'specialCharacterValidation' && 'Password must have at least one Special Character'}
+                    </p>
+                    </div>))
+                }
                 {login &&<button disabled={loading}>
                     {loading?"logging in":"Log In"}
                 </button>}
@@ -109,7 +150,8 @@ const pass = document.querySelector("#password");
                     {loading?"Sumbitting":"Sumbit "}
                 </button>
                 }
-                <p>{description}</p><NavLink to={login?"/signup":"/login"}>{navText}</NavLink>
+                <p>{description}</p>
+                <NavLink to={login?"/signup":"/login"}>{navText}</NavLink>
                 {login &&<>
                 <div>
                     or Contiune With

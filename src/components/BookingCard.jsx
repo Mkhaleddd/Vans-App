@@ -76,7 +76,7 @@ export default function BookingCard({price}) {
               <input type="date" name="dropff-day" id="dropoff" />
               <input type="time" name="dropoff-time" id='dropoff-time' />  
             </div>
-          <span className='price-box'>${price}</span>
+          <span className='price-box'>Rent price${price}</span>
           <button className="link-button" 
           onClick={handleBook} 
           >

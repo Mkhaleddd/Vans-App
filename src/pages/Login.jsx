@@ -5,6 +5,7 @@ import SinglePageLog from "../components/SinglePageLog";
 export default function Login() {
 
     return (
+        <>
        <SinglePageLog 
        title={"Create an Account"}
        login={true}
@@ -12,5 +13,7 @@ export default function Login() {
        navText={"Sing Up"}
        hidePassword={true}
        />
+      
+       </>
     )
 }

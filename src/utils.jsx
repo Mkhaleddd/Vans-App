@@ -28,7 +28,7 @@ export  function renderVans (vans){
             return prev
       })
     }
-    const search=(e="")=>{
+    const search=(e)=>{
         if(debounceVal) {
          setSearchParams(prev=>{  
          return {...prev,q}})  
@@ -61,8 +61,6 @@ export  function renderVans (vans){
                 <div className="img-wrapper">
                         <img src={van.imageURL}  alt={`Image of ${van.name}`}/>
                 </div>
-             
-
                 <div className="van-info">
                     <h3>{van.name}</h3>
                     <p>${van.price}<span>/day</span></p>
