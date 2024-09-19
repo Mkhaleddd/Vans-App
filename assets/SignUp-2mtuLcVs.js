@@ -1,0 +1,1 @@
+import{j as t}from"./index-wT3FVUXz.js";import{S as e}from"./SinglePageLog-Gs5Q7761.js";function o(){return t.jsx(e,{title:"Create an Account",login:!1,description:"Have an Account already?",navText:"Log In"})}export{o as default};

@@ -1,1 +1,0 @@
-import{j as t}from"./index-kpvGS7mP.js";import{S as e}from"./SinglePageLog-wqazs1eK.js";function r(){return t.jsx(t.Fragment,{children:t.jsx(e,{title:"Create an Account",login:!0,description:"Don't have an account?",navText:"Sing Up",hidePassword:!0})})}export{r as default};
