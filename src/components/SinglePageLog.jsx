@@ -15,7 +15,7 @@ import {auth} from '../api';
 import { FcGoogle } from "react-icons/fc";
 import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
-
+import OtpAuth from "./OtpAuth/OtpAuth"
 
 export default function SinglePageLog({title,login,description,navText,hidePassword}) {
     const [email, setEmail] = useState("");
@@ -43,37 +43,52 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
         setPassword(newPassword);
         validatePassword(newPassword);
       };
-    async function googleLoginDeskTop() {
+    async function googleLogin(isMobile) {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).then(async () => {
-         navigate("/host")  })
-       
+        try{
+            if(isMobile){
+                signInWithRedirect(auth, provider).then(async () => {
+               navigate("/host")  })
+           }
+           else{
+               signInWithPopup(auth, provider).then(async () => {
+               navigate("/host")  })
+           
+               }  
         }
-    async  function googleLoginMobile() {
-           const provider = new GoogleAuthProvider();
-            signInWithRedirect(auth, provider).then(async () => {
-            navigate("/host")  })
-            }
-         
+        catch(error){
+            setLoading(false)
+            setError(error.message || "an error ocuured during log in")
+        }
+         finally{
+            setLoading(false)
+         }
+        }
+        
     const handleSingUp= async (e) => {
         e.preventDefault();
         if(password!=match) {
             setError("Passwords are not matched")
             return
-        } else setError("")
+        } 
+        if(!Object.values(errors).every(Boolean)){
+            setError("Password does not match criteria")
+            return
+        }
         try {
             setLoading(true)
-            if(Object.values(errors)===true)
-           {
                 await createUserWithEmailAndPassword(auth, email, password);
-                 navigate('/login')
-                    
-            }
-        } catch (error) {
+                 navigate('/login')    
+        } 
+        catch (error) {
           setLoading(false)
-          setError(error.message)
+          setError(error.message || "an error ocuured during sign up")
          
-        }} 
+        }
+        finally{
+            setLoading(false)
+        }
+    } 
     const handleLogIn = async (e) => {
             e.preventDefault();
             try {
@@ -83,21 +98,28 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
               
             } catch (error) {
               setLoading(false)
-              setError(error.message)
+              setError(error.message || "an error ocuured during log in")
+            }
+            finally{
+                setLoading(false)
             }
           };
-    const togglePassword = document.querySelector("#togglePassword");
-    const pass = document.querySelector("#password");
-    
+
     useEffect(()=>{
-            togglePassword?.addEventListener("click", function () {
-                    const type = pass.getAttribute("type") === "password" ? "text" : "password";
+        const togglePassword = document.querySelector("#togglePassword");
+        const pass = document.querySelector("#password");
+        const toggle=()=>{
+            const type = pass.getAttribute("type") === "password" ? "text" : "password";
                     pass.setAttribute("type", type);
-                    this.classList.toggle("bi-eye");});
-        },[togglePassword])        
+                    togglePassword.classList.toggle("bi-eye");
+        }
+            togglePassword?.addEventListener("click",toggle);
+            return ()=>togglePassword?.removeEventListener("click",toggle)
+        },[])        
    
     return (
         <div className="login-container">
+
             <h1>{title}</h1>
             {error && <h3 className="red" aria-live="assertive">{error}</h3>}
 
@@ -127,6 +149,7 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
                     onChange={(e) => setMatch(e.target.value)}
                     required
                 />}
+                {!login&& <OtpAuth />}
                 {!login&&Object.entries(errors).map(([key, value]) => (
                     <div key={key} className={`flex ${value?"green":" red"}`}>
                     {value ? (
@@ -156,10 +179,10 @@ export default function SinglePageLog({title,login,description,navText,hidePassw
                 <div>
                     or Contiune With
                     <button id="google-signin-desktop"
-                    onClick={googleLoginDeskTop}> <FcGoogle />oogle
+                    onClick={()=>googleLogin(false)}> <FcGoogle />oogle
                     </button>
                     <button id="google-signin-mobile"
-                    onClick={googleLoginMobile}> <FcGoogle />oogle
+                    onClick={()=>googleLogin(true)}> <FcGoogle />oogle
                     </button>
                 </div>
                 </>}

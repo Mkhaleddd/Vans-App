@@ -2,11 +2,12 @@ import React from "react"
 import bgImg from "../assets/images/about-hero.png"
 import { Link } from "react-router-dom"
 
+
 export default function About() {
     return (
         <div className="about-page-container">
-           
-            <img src={bgImg} className="about-hero-image" height='100%' width='100%'  loading="lazy" />
+            
+            <img src={bgImg} alt="hero image" className="about-hero-image" height='auto' width='100%'  loading="lazy" />
             
             <div className="about-page-content">
                 <h1>Don’t squeeze in a sedan when you could relax in a van.</h1>

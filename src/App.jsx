@@ -41,6 +41,8 @@ export default function App() {
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
+    
+        
     <Route path='Vans-App' element={<React.Suspense 
     fallback={<ReactLoading type={"bars"} color="#000"  className="loading-bar"/>}>
       <Home />

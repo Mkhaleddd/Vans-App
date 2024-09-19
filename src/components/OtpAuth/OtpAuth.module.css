@@ -1,0 +1,82 @@
+/* OtpAuth.module.css */
+
+ 
+  .successMessage {
+    text-align: center;
+    color: #4caf50;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .errorMessage {
+    color: #f44336;
+    text-align: center;
+  }
+  
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  
+  .icon {
+    background-color: #fc8517;
+    color: #000000;
+    padding: 16px;
+    border-radius: 50%;
+  }
+  
+  .label {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .otpInput {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fc8517;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:disabled {
+    background-color: #ffcc8d;
+  }
+  
+  .button .spinner {
+    margin-right: 8px;
+  }
+  
+  .phoneInput {
+    border: 1px solid rgba(209,213,219);
+    height: 40px;
+    text-indent: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    font-weight: 400;
+    .react-tel-input input.form-control{
+        padding: 1em 2.25em;
+        height: 40px;
+        width: 100%;
+    }
+  }
+  
+  .recaptchaContainer {
+    display: none; /* Hidden, as reCAPTCHA is invisible */
+  }
+  

@@ -6,6 +6,7 @@ import Footer from "./Footer"
 export default function Layout() {
     return (
         <div className="site-wrapper">
+             <div id="recaptcha-container" ></div>
             <Header />
             <main id="content">
                 <Outlet />

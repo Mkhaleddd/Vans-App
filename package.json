@@ -15,12 +15,14 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "emailjs": "^4.0.3",
-    "firebase": "^10.8.0",
+    "firebase": "^10.13.1",
+    "otp-input-react": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
     "react-loading": "^2.0.3",
     "react-payment-inputs": "^1.2.0",
+    "react-phone-input-2": "^2.15.1",
     "react-router": "^6.21.3",
     "react-router-dom": "^6.21.3",
     "react-toastify": "^10.0.5"
